@@ -467,7 +467,7 @@
 
 	
 var computeUserProgress= ()=>{//users, progress, courses)=>{
-    fetch('http://127.0.0.1:8080/data/cohorts/lim-2018-03-pre-core-pw/progress.json')
+    fetch('./data/cohorts/lim-2018-03-pre-core-pw/progress.json')
     .then((response)=>{
        return response.json();
     }).then((jsonData1)=>{
@@ -478,7 +478,7 @@ var computeUserProgress= ()=>{//users, progress, courses)=>{
     };
 	
 var computeUsersStats= ()=>{//users, progress, courses)=>{
-    fetch('http://127.0.0.1:8080/data/cohorts/lim-2018-03-pre-core-pw/users.json')
+    fetch('../data/cohorts/lim-2018-03-pre-core-pw/users.json')
     .then((response)=>{
        return response.json();
     }).then((jsonDataUsers)=>{		
