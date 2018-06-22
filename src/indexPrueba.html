@@ -322,7 +322,7 @@
 	<script>
 
 var computeUsersStats= ()=>{//users, progress, courses)=>{
-    fetch('http://127.0.0.1:8080/data/cohorts.json')
+    fetch('../data/cohorts.json')
     .then((response)=>{
        return response.json();
     }).then((jsonData)=>{
