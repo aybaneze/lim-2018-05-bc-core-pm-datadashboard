@@ -351,7 +351,7 @@
 	//computeUserProgress();
 	
 	function sortTable(n) {
-	debugger;
+	
 	  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
 	  table = document.getElementById("datatableUsers");
 	  switching = true;
@@ -407,7 +407,7 @@
 }
 	
 	function filterUsers() {
-	debugger;
+	
 	  var input, filter, table, tr, td, i;
 	  input = document.getElementById("myInput");
 	  filter = input.value.toUpperCase();
@@ -585,18 +585,6 @@ var computeUsersStats= ()=>{//users, progress, courses)=>{
 	});
     };
 
-/*const data= new XMLHttpRequest();
-data.open('GET','http://127.0.0.1:8080/data/cohorts.json',true);
-data.onload=add;
-data.send();
-console.log(data);
-}
-
-function add () {
-
- const datos=JSON.parse(this.responseText);
- console.log(datos);
-}*/
 
 var lim=document.getElementById('lim');
 
