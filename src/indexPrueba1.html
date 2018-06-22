@@ -467,7 +467,7 @@
 
 	
 var computeUserProgress= ()=>{//users, progress, courses)=>{
-    fetch('./data/cohorts/lim-2018-03-pre-core-pw/progress.json')
+    fetch('https://leydy.github.io/lim-2018-05-bc-core-pm-datadashboard/data/cohorts/lim-2018-03-pre-core-pw/progress.json')
     .then((response)=>{
        return response.json();
     }).then((jsonData1)=>{
@@ -478,7 +478,7 @@ var computeUserProgress= ()=>{//users, progress, courses)=>{
     };
 	
 var computeUsersStats= ()=>{//users, progress, courses)=>{
-    fetch('../data/cohorts/lim-2018-03-pre-core-pw/users.json')
+    fetch('https://leydy.github.io/lim-2018-05-bc-core-pm-datadashboard/data/cohorts/lim-2018-03-pre-core-pw/users.json')
     .then((response)=>{
        return response.json();
     }).then((jsonDataUsers)=>{		
