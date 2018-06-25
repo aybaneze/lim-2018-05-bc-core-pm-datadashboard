@@ -52,8 +52,17 @@ Seguidamente a la breve entrevista realizada se llegò a las siguientes conclusi
 
 ## SKETCH DE LA SOLUCIÓN (prototipo de baja fidelidad)
 
-Debes hacer un _sketch_ (boceto) de tu solución usando papel y lápiz, tomarle
-una foto, subirla a tu repositorio y hacer mención del _sketch_ en tu `README.md`.
+Utilizando unas hojas de papel se procedió a la elaboración del sketch inicial que contenía básicamente las pantallas ha realizar y las funcionalidades a implementar.
+
+![Preview](https://github.com/Leydy/lim-2018-05-bc-core-pm-datadashboard/blob/gh-pages/src/images/sketch/1.jpeg)
+![Preview](https://github.com/Leydy/lim-2018-05-bc-core-pm-datadashboard/blob/gh-pages/src/images/sketch/2.jpeg)
+![Preview](https://github.com/Leydy/lim-2018-05-bc-core-pm-datadashboard/blob/gh-pages/src/images/sketch/3.jpeg)
+![Preview](https://github.com/Leydy/lim-2018-05-bc-core-pm-datadashboard/blob/gh-pages/src/images/sketch/4.jpeg)
+![Preview](https://github.com/Leydy/lim-2018-05-bc-core-pm-datadashboard/blob/gh-pages/src/images/sketch/5.jpeg)
 
 ## DISEÑO DE LA INTERFAZ DE USUARIO (prototipo de alta fidelidad)
 
+Se realizó el prototipo de alta fidelidad utilizando la herramienta FIGMA, abordando ya estilos y las funcionalidades principales del producto.
+
+Lo pueden visualizar aquí:
+https://www.figma.com/file/euldRLP5r0VMl9GxquqxR40G/SketchDatadashboard
