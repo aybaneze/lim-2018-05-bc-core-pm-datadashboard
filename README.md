@@ -40,7 +40,7 @@ Seguidamente a la breve entrevista realizada se llegò a las siguientes conclusi
 * ¿Quiénes son los principales usuarios de producto?
     Las training managers.
 * ¿Cuáles son los objetivos de estos usuarios en relación con el producto?
-    Optimizar los tiempos en relación a la búsqueda de avances por alumna.
+    Optimizar los tiempos en relación a la búsqueda de avances por estudiantes.
 * ¿Cuáles son los datos más relevantes que quieren ver en la interfaz y por qué. Cómo los descubriste?
     Los datos màs relevantes fueron tres: resultado de quizzes, ejercicios y lecturas, se tuvo conocimiento de ello en base a la entrevista.
 * ¿Cuándo revisan normalmente estos datos los usuarios?
