@@ -1,31 +1,84 @@
-const go=document.getElementById('go');
-const user=document.getElementById('user');
-go.addEventListener('click',(event)=>{
-    event.preventDefault();
-const pass= document.getElementById('pass').value;
-    if(pass=='abc'){
-    document.getElementById('login').style.display='none'; 
-    document.getElementById('platform').style.display='block';
-    
+let users = {};
+let progress = {};
+let courses = {};
+let cohort = {};
+
+fetch('https://api.laboratoria.la/cohorts')
+  .then((response) => {
+    if (response.status === 200) {
+      return response.json();
+    } else {
+      console.log('ocurrio error')
     }
-    else if(pass==''){
-        alert("casilleros en blanco")
+  }).then((jsonDataCohort) => {
+    const courseIds = Object.keys(cohort.coursesIndex || {});
+    courses = courseIds;
+    console.log(courses);
+    cohort = jsonDataCohort;
+
+  })
+
+fetch('https://leydy.github.io/lim-2018-05-bc-core-pm-datadashboard/data/cohorts/lim-2018-03-pre-core-pw/users.json')
+  .then((response) => {
+    if (response.status === 200) {
+      return response.json();
+    } else {
+      console.log('ocurrio error')
     }
-    else{
-        alert ("contraseña incorrecta");
+  }).then((jsonDataUsers) => {
+    users = jsonDataUsers;
+    return fetch('https://leydy.github.io/lim-2018-05-bc-core-pm-datadashboard/data/cohorts/lim-2018-03-pre-core-pw/progress.json')
+  }).then((response) => {
+    if (response.status === 200) {
+      return response.json();
+    } else {
+      console.log('ocurrio error')
     }
+  }).then((jsonDataProgress) => {
+    progress = jsonDataProgress;
+    computeUsersStats(users, progress,courses);
+  })
+
+var grupoAnio = document.getElementById("conjuntoAnio"); /*Obtener el SELECT */
+var anioSeleccionado = grupoAnio.options[grupoAnio.selectedIndex].value;
+
+var grupoCohort = document.getElementById("selectSede"); /*Obtener el SELECT */
+var cohortsSeleccionado = grupoCohort.options[grupoCohort.selectedIndex].value;
+
+var grupoCohortCombo = document.getElementById("conjuntoBootcamp"); /*Obtener el SELECT */
+var cohortsSeleccionadoCombo = grupoCohortCombo.options[grupoCohortCombo.selectedIndex].value;
+
+//obtiene lo seleccion en el select conjuntoAnio
+function ShowSelected1() {
+  //Para obtener el valor
+  anioSeleccionado = document.getElementById("conjuntoAnio").value;
 }
-);
 
-user.addEventListener('click',(event)=>{
-    document.getElementById('second').style.display='block';
-})
+//obtiene lo seleccion en el select selectSede
+function selectSede() {
+  // Para obtener el valor
+  cohortsSeleccionado = document.getElementById("selectSede").value;
+  //obtiene lo seleccion en el select conjuntoBootcamp
+  select = document.getElementById('conjuntoBootcamp');
+  select.innerHTML = "";
+  if (courses != undefined) {
+    for (let i = 0; i < courses.length; i++) {
 
+      let anio = courses[i].start.substring(0, 4);
+      var primerSegmentoCohort = courses[i].id.split("-");
+      let cohort = primerSegmentoCohort[0];
 
-
-
-
-
-
-  
-    
+      if (cohort === cohortsSeleccionado && anio === anioSeleccionado) {
+        var opt = document.createElement('option');
+        opt.value = courses[i].id;
+        opt.innerHTML = courses[i].id;
+        select.appendChild(opt);
+      }
+    }
+  }
+}
+//obtiene lo seleccion en el select conjuntoBootcamp
+function selectBootcamp() {
+  // Para obtener el valor
+  cohortsSeleccionadoCombo = document.getElementById("conjuntoBootcamp").value;
+}
