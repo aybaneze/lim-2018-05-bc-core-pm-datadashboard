@@ -3,6 +3,20 @@ let progress = {};
 let courses = {};
 let cohort = {};
 
+
+window.onload = function () {
+
+  showCohorts();
+  setTimeout(function () {
+
+    selectSede();
+
+  }, 2000);
+}
+const showCohorts = (users, courses) => {
+  
+}
+
 fetch('https://api.laboratoria.la/cohorts')
   .then((response) => {
     if (response.status === 200) {
@@ -10,11 +24,9 @@ fetch('https://api.laboratoria.la/cohorts')
     } else {
       console.log('ocurrio error')
     }
-  }).then((jsonDataCohort) => {
-    const courseIds = Object.keys(cohort.coursesIndex || {});
-    courses = courseIds;
-    console.log(courses);
-    cohort = jsonDataCohort;
+  }).then((jsonDataCohorts) => {
+    courses = jsonDataCohorts;
+    showCohorts(users, courses);
 
   })
 

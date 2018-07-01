@@ -198,10 +198,13 @@
                         <div class="form-group">
                             <label class="control-label">Selecciona una Sede :</label>
                             <select id="selectSede" class="form-control custom-select" data-placeholder="Seleccione una Sede" tabindex="1" onchange="selectSede();">
-                                <option value="lim">Lima</option>
-                                <option value="scl">Chile</option>
-                                <option value="cdmx">Mexico</option>
                                 <option value="aqp">Arequipa</option>
+                                <option value="cdmx">Ciudad de México</option>
+                                <option value="gdl">Guadalajara</option>
+                                <option value="lim">Lima</option>
+                                <option value="scl">Santiago de Chile</option>  
+                                <option value="spl">Sao Paulo</option>
+                               
                             </select>
                         </div>
                     </div>
@@ -219,7 +222,7 @@
 
                     <div class="col-md-3">
                         <div class="form-group">
-                            <button id="lim" class="btn btn-primary btn-flat m-b-30 m-t-30">Cargar </button>
+                            <button id="udt" class="btn btn-primary btn-flat m-b-30 m-t-30">Cargar </button>
 
                         </div>
                     </div>
@@ -239,10 +242,11 @@
                                         <thead>
                                             <tr>
                                                 <th>Nombres</th>
+                                                <th>Lecturas</th>
                                                 <th>Ejercicios</th>
                                                 <th>Quizzes</th>
-                                                <th>Lecturas</th>
                                                 <th>Porcentaje</th>
+                                                <th>Detalles</th>
                                             </tr>
                                         </thead>
                                         <tbody id="TableBody">
