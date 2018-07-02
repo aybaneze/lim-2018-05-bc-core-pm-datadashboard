@@ -22,16 +22,71 @@
     <link href="css/helper.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
 
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+
+
+</style>
 
 </head>
 
 <body class="fix-header fix-sidebar">
     <!-- Preloader - style you can find in spinners.css -->
-    <div class="preloader">
-        <svg class="circular" viewBox="25 25 50 50">
-            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
-    </div>
+    
     <!-- Main wrapper  -->
     <div id="main-wrapper">
         <!-- header header  -->
@@ -62,9 +117,7 @@
                                 <i class="ti-menu"></i>
                             </a>
                         </li>
-                        <!-- Messages -->
-
-                        <!-- End Messages -->
+                       
                     </ul>
                     <!-- User profile and search -->
                     <ul class="navbar-nav my-lg-0">
@@ -80,8 +133,7 @@
                             </a>
 
                         </li>
-                        <!-- End Comment -->
-                        <!-- Messages -->
+                     
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted  " href="#" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-envelope"></i>
@@ -92,8 +144,7 @@
                             </a>
 
                         </li>
-                        <!-- End Messages -->
-                        <!-- Profile -->
+                       
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="images/users/Z.png" alt="user" class="profile-pic" />
@@ -185,7 +236,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="control-label">Seleccione un Año :</label>
-                            <select id="conjuntoAnio" class="form-control custom-select" data-placeholder="Seleccion un Año" tabindex="1" onchange="ShowSelected1();">
+                            <select id="conjuntoAnio" class="form-control custom-select" tabindex="1" onchange="ShowSelected1();">
                                 <option value="2018">2018</option>
                                 <option value="2017">2017</option>
                                 <option value="2016">2016</option>
@@ -197,7 +248,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="control-label">Selecciona una Sede :</label>
-                            <select id="selectSede" class="form-control custom-select" data-placeholder="Seleccione una Sede" tabindex="1" onchange="selectSede();">
+                            <select id="selectSede" class="form-control custom-select" tabindex="1" onchange="selectSede();">
                                 <option value="aqp">Arequipa</option>
                                 <option value="cdmx">Ciudad de México</option>
                                 <option value="gdl">Guadalajara</option>
@@ -217,9 +268,44 @@
                                 onchange="selectBootcamp();">
                                 <option value="">Seleccione Cohort</option>
                             </select>
+
+
+
                         </div>
                     </div>
 
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Ordenar:</label>
+                            <select id="orderBy" class="form-control custom-select" tabindex="1">
+                                <option>Nombre</option>
+                                <option>Porcentaje Completitud Total</option>
+                                <option>Porcentaje ejercicios completos</option>
+                                <option>Porcentaje Quizzes completos</option>
+                                <option>Puntuacion promedio en quizzes</option>
+                                <option>Porcentaje de lecturas completadas</option>
+                               
+                            </select>
+                            
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Selecciona la dirección de ordenado :</label>
+                           <select id="orderDirection" class="form-control custom-select" >
+                            <option>ASC</option>
+                            <option>DESC</option>
+                            </select><br><br>
+
+
+
+                        </div>
+                    </div>
+
+        
                     <div class="col-md-3">
                         <div class="form-group">
                             <button id="udt" class="btn btn-primary btn-flat m-b-30 m-t-30">Cargar </button>
@@ -236,27 +322,90 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Estudiantes</h4>
+                            <input type="text" id="myInput" onkeyup="filterUsers()" placeholder="Search for names.." title="Type in a name">
+                            <button type="button" name="button" id="buttonSearch">Buscar</button>                             
+                             <h4 class="card-title">Estudiantes</h4>
                                 <div class="table-responsive m-t-40">
                                     <table id="myTable" class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Nombres</th>
-                                                <th>Lecturas</th>
-                                                <th>Ejercicios</th>
-                                                <th>Quizzes</th>
-                                                <th>Porcentaje</th>
-                                                <th>Detalles</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="TableBody">
-
-                                        </tbody>
+                                        
                                     </table>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div id="myModal" class="modal">
+
+                                  <!-- Modal content -->
+                                  <div class="modal-content">
+                                    <span class="close">&times;</span>
+                                    <p id="pagrafo1"></p>
+                                    <p id="pagrafo2"></p>
+                                    <p id="pagrafo3"></p>
+                                    
+                                    <div class="current-progress">
+                                      <div id="contenedorProgress" class="progress-content">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="progress-text">Exercises</div>
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <div class="current-progressbar">
+                                                        <div class="progress">
+                                                            <div id="progresExercise"  role="progressbar"  aria-valuemin="0" aria-valuemax="100">
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="progress-text">Quizzes</div>
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <div class="current-progressbar">
+                                                        <div class="progress">
+                                                            <div id="progresQuizzes"  role="progressbar"  aria-valuemin="0" aria-valuemax="100">
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="progress-text">Reads</div>
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <div class="current-progressbar">
+                                                        <div class="progress">
+                                                            <div id="progresReads" role="progressbar"  aria-valuemin="0" aria-valuemax="100">
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                  
+                                    </div>
+                                    
+                                  </div>
+                                  
+                            
+
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                      
                 </div>
 
 
@@ -273,7 +422,7 @@
         <!-- End Page wrapper  -->
     </div>
     <!-- End Wrapper -->
-    <!-- All Jquery -->
+    
 
     <script src="js/lib/jquery/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->

@@ -1,134 +1,157 @@
-let usersDataTable=document.getElementById('udt');
+const filterUsers = (users, search) => {
 
-//usersDataTable.addEventListener('click',computeUsersStats(users, progress, courses));
+  let studentsTableFiltered = users.filter(user => (user.name.toUpperCase()).indexOf(search.toUpperCase()) !== -1);
+  return studentsTableFiltered;
+}
+const computeUsersStats = (users, progress, courses) => {
+  let studentsTable = [];
+  users.forEach(function(element) {
+  let uid = element.id;
+  let progressUser = progress[uid];
+  let percentTotal = 0;
+  let exercisesTotal = 0;
+  let exercisesCompleted = 0;
+  let readsTotal = 0;
+  let readsCompleted = 0;
+  let quizzesTotal = 0;
+  let quizzesCompleted = 0;
+  let quizzesScoreSum = 0;
+  let empty = Object.keys(progressUser).length;
+  if(empty !== 0)
+  {	  
+    courses.forEach(courseName => {
+      if(progressUser.hasOwnProperty(courseName)) {
+        if(progressUser[courseName].hasOwnProperty('percent')) {
+          percentTotal += progressUser[courseName].percent;
+          let progressUserByCourse = progressUser[courseName];
+          Object.values(progressUserByCourse.units).forEach(unit => {
+            let exercises = Object.values(unit.parts);
+                exercises.forEach((part) => {
+              if(part.type === "read") {
+                readsCompleted += part.completed;
+                readsTotal++;
+              }
+              if(part.type === "quiz") {
+                quizzesCompleted += part.completed;
+                quizzesTotal++;
+                if(part.hasOwnProperty('score')){
+                  quizzesScoreSum += part.score;
+                }
+              }
+              if(part.type === "practice") {
+                if(part.hasOwnProperty('exercises')) {
+                  Object.values(part.exercises).forEach(ejercicio => {
+                      exercisesCompleted += ejercicio.completed;
+                      exercisesTotal++;
+                  })
+                }
+              }
+            })
+          })
+        }
+      }
+    })
+  percentTotal = Math.round((percentTotal/courses.length)*100)/100;
+   
+  }
+  let percentQuiz;
+  if(quizzesCompleted === 0 && quizzesTotal === 0){
+    percentQuiz = 0;
+  }else{
+    percentQuiz = parseInt((quizzesCompleted/quizzesTotal*100).toFixed());
+  }
+  let scoreAvg;
+  if(quizzesScoreSum === 0 && quizzesCompleted === 0){
+    scoreAvg = 0;
+  }else{
+      scoreAvg = parseInt((quizzesScoreSum/quizzesCompleted).toFixed());
+  }
+  let usersWithStats = {
+    stats : {
+      name : (element.name).replace(/\b\w/g, function(l){ return l.toUpperCase() }),
+      percent: percentTotal,
+      exercises : {
+        total: exercisesTotal,
+        completed: exercisesCompleted,
+        percent: parseInt((exercisesCompleted/exercisesTotal*100).toFixed())
+      },
+      reads : {
+        total: readsTotal,
+        completed: readsCompleted, 
+        percent: parseInt((readsCompleted/readsTotal*100).toFixed())
+      },
+      quizzes : {
+        total: quizzesTotal, 
+        completed: quizzesCompleted, 
+        percent: percentQuiz,
+        scoreSum: quizzesScoreSum,
+        scoreAvg: scoreAvg
+      }
+    }
+  }
+  studentsTable.push(usersWithStats);
+  });
+  usersStats=studentsTable;
+  return studentsTable;
+}
 
-    usersDataTable.addEventListener(
-        'click',
-        function() {
+const sortUsers = (users, orderBy, orderDirection) => {
+  let studentsTableByOrder =users;
+  if(orderBy === "Nombre") {
+    studentsTableByOrder.sort( function(a, b) {
+      var nameA=a.stats.name.toLowerCase(), nameB=b.stats.name.toLowerCase()
+      if (nameA < nameB)
+          return -1
+      if (nameA > nameB)
+          return 1
+    });
+  }
+  if(orderBy === "Porcentaje General") {
+    studentsTableByOrder.sort( function(a,b) {
+      return a.stats.percent - b.stats.percent;
+    });
+  }
+  if(orderBy === "Ejercicios") {
+    studentsTableByOrder.sort( function(a,b) {
+      return a.stats.exercises.completed - b.stats.exercises.completed;
+    });
+  }
+  if(orderBy === "Quizzes") {
+    studentsTableByOrder.sort( function(a,b) {
+      return a.stats.quizzes.completed - b.stats.quizzes.completed;
+    });
+  }
+  if(orderBy === "Promedio de Quizzes") {
+    studentsTableByOrder.sort( function(a,b) {
+      return a.stats.quizzes.scoreSum - b.stats.quizzes.scoreSum;
+    });
+  }
+  if(orderBy === "Lecturas") {
+    studentsTableByOrder.sort( function(a,b) {
+      return a.stats.reads.completed - b.stats.reads.completed;
+    });
+  }
+  if (orderDirection === "DESC") {
+    studentsTableByOrder = studentsTableByOrder.reverse();
+  }
 
-        	computeUsersStatsDataTable();
+  return studentsTableByOrder;
+}
 
+const processCohortData = (options) => {
+  let users = options.cohortData.users;
+  let progress = options.cohortData.progress;
+  let orderBy = options.orderBy;
+  let orderDirection = options.orderDirection;
+  let search = options.search;
+  let courses = options.cohortData.coursesIndex;
+  let usersFiltered = filterUsers(users, search);
+  let usersWithStatus = computeUsersStats(usersFiltered, progress, courses);
+  let studentsTableOrderAndFiltered = sortUsers(usersWithStatus, orderBy, orderDirection);
+  return studentsTableOrderAndFiltered;
+}
 
-
-        },
-        false
-      );
-
-
-
-const computeUsersStats= (users, progress, courses)=>{
-	
-	
-		
-    };
-
-
-
-const computeUsersStatsDataTable= ()=>{
-	
-	debugger;
-		var Table = document.getElementById("TableBody");
-
-		Table.innerHTML = "";
-		
-		for(let i = 0 ; i<users.length;i++){
-		  var existeSignupCohort = users[i].signupCohort;
-              let cohort;
-            let valoresPantalla;
-            let arraySplitUserData;
-            if(existeSignupCohort != undefined){
-            arraySplitUserData = users[i].signupCohort.split("-");
-
-            cohort = arraySplitUserData[0]+ "-" + arraySplitUserData[1];
-            valoresPantalla = cohortsSeleccionado + "-" + anioSeleccionado ;
-            }
-			
-        
-
-			if(cohort === valoresPantalla ){//para que entre a la funcion que cumpla lo seleccionado
-
-
-			   var objetoProgresoQuiz = progress[users[i].id];
-
-               var objetoVacio = objetoProgresoQuiz.intro;
-               if(objetoVacio!= undefined){
-			   var quizIntroduction = objetoProgresoQuiz.intro.units["01-introduction"];
-			   var quizIntroductionParts = quizIntroduction.parts["04-quiz"].completed;
-
-			   var quizDesign = objetoProgresoQuiz.intro.units["03-ux-design"];
-			   var quizDesignParts = quizDesign.parts["03-quiz"].completed;
-			   var quizVariables = objetoProgresoQuiz.intro.units["02-variables-and-data-types"];
-			   var quizVariablesParts = quizVariables.parts["05-quiz"].completed;
-			   var totalQuiz = parseInt(quizIntroductionParts) + parseInt(quizDesignParts)+ parseInt(quizVariablesParts)
-			 
-
-               var objetoProgressPractice = progress[users[i].id];
-               var practiceIntroductionUnits = objetoProgressPractice.intro.units;
-               var practiceIntroduction;
-               var practiceIntroductionParts;
-               var practiceGuidedExercises;
-
-               if(practiceIntroductionUnits != undefined){
-
-                practiceIntroduction=objetoProgressPractice.intro.units["02-variables-and-data-types"];
-
-
-
-               practiceIntroductionParts=practiceIntroduction.parts["06-exercises"].completed;
-               practiceGuidedExercises = practiceIntroduction.parts["04-guided-exercises"].completed;
-               }else{
-                practiceGuidedExercises="0";
-                practiceIntroductionParts="0";
-               }
-             
-
-               var totalPractice = parseInt(practiceIntroductionParts)+parseInt(practiceGuidedExercises)
-
-
-               var objetoProgressRead = progress[users[i].id];
-
-               var readIntroduction =objetoProgressRead.intro.units["01-introduction"];
-               var readWhyLearn = readIntroduction.parts["02-why-learn-to-code"].completed;
-               var readGrowth = readIntroduction.parts["01-growth-mindset"].completed;
-               var readWelcome = readIntroduction.parts["00-welcome-and-orientation"].completed;
-               var readYourFirst = readIntroduction.parts["03-your-first-website"].completed;
-
-               var readUxDesign = objetoProgressRead.intro.units["03-ux-design"];
-               var readDevelopment = readUxDesign.parts["00-development-team"].completed;
-               var readUxVsDesign = readUxDesign.parts["02-ux-design-vs-ui-design"].completed;
-               var readUx = readUxDesign.parts["01-ux-design"].completed;
-
-               var readVariables = objetoProgressRead.intro.units["02-variables-and-data-types"];
-               var readComments = readVariables.parts["03-comments"].completed;
-               var readValuesData = readVariables.parts["00-values-data-types-and-operators"].completed;
-               var readVariables1 = readVariables.parts["01-variables"].completed;
-               var readSelf = readVariables.parts["02-self-learning-MDN"].completed;
-
-               var totalRead = parseInt(readWhyLearn)+parseInt(readGrowth)+parseInt(readWelcome)+parseInt(readYourFirst)+parseInt(readDevelopment)+parseInt(readUxVsDesign)+parseInt(readUx)+parseInt(readComments)+parseInt(readValuesData)+parseInt(readVariables1)+parseInt(readSelf)
-
-
-
-			
-				let TableRow="<tr></tr>";
-               TableRow = "<td>" + users[i].name+ "</td>"+
-               			  "<td>" + totalRead + "</td>"+
-               			  "<td>" + totalPractice + "</td>"+
-               			  "<td>" + totalQuiz + "</td>"+
-						  "<td>" + totalPractice+ "</td>"+
-                          
-                          
-                          
-						   '<td><button onclick="showDetails(this)" class="delete" >Ver</button></td>';
-						  
-			  // var objetoProgress = progress.jsonData[i].id;		  
-			   var TrElement = document.createElement("tr");
-               TrElement.innerHTML = TableRow;
-			   
-			   
-               document.getElementById("TableBody").appendChild(TrElement);
-               }	   
-			}
-
-		}
-	
-    };
+window.filterUsers = filterUsers;
+window.computeUsersStats = computeUsersStats;
+window.sortUsers = sortUsers;
+window.processCohortData = processCohortData;
