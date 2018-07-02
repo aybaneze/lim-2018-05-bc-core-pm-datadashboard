@@ -26,7 +26,7 @@ _ver_ y _usar_ la data de progreso del LMS. Para ello, proponemos crear un
 
 ## DEFINICIÓN DEL PRODUCTO
 
-Para poder entender las dificultades y/o limitaciones se tuo un contacto directo con la usuaria final del producto a realizar, esto se llevo a cabo con una de las TMs. en base a una breve entrevista que constaba de las siguientes interrogantes:
+Para poder entender las dificultades y/o limitaciones se tuvo un contacto directo con la usuaria final del producto a realizar, esto se llevo a cabo con una de las TMs. en base a una breve entrevista que constaba de las siguientes interrogantes:
 
 * ¿Qué herramienta utilizas actualmente?
 * ¿Tienes alguna limitación tecnológica?
@@ -36,33 +36,56 @@ Para poder entender las dificultades y/o limitaciones se tuo un contacto directo
 * De la herramienta que utlizas actualmente. ¿Qué es lo màs indispensable?
 
 Seguidamente a la breve entrevista realizada se llegò a las siguientes conclusiones:
+> Las principales usuarias son Las training managers, por la cual su objetivo es  Optimizar los tiempos en relación a la búsqueda de avances por estudiantes, además para ellas lo más fundamental son los resultados sobre los quizzes, ejercicios y lecturas, ya que según nos iban explicando en la entrevista que para ellas es muy importante saber el progreso que existe entre las alumnas que usan el LMS.
+cabe destacar que ellas revisan la informacion cada vez que finaliza un sprint para ver el avance de autoaprendizaje por cada estudiante.
+El hecho de tener mucha información en un archivo XLS resulta complicado además que se pierde tiempo en realizar búsquedas, y si se tiene un sitio web donde manipular esos datos el flujo se vuelve un tanto más sencillo y amigable.
 
-* ¿Quiénes son los principales usuarios de producto?
-    Las training managers.
-* ¿Cuáles son los objetivos de estos usuarios en relación con el producto?
-    Optimizar los tiempos en relación a la búsqueda de avances por estudiantes.
-* ¿Cuáles son los datos más relevantes que quieren ver en la interfaz y por qué. Cómo los descubriste?
-    Los datos màs relevantes fueron tres: resultado de quizzes, ejercicios y lecturas, se tuvo conocimiento de ello en base a la entrevista.
-* ¿Cuándo revisan normalmente estos datos los usuarios?
-    Lo revisan finalizando cada sprint realizado para ver el avance de autoaprendizaje por alumna.
-* ¿Cómo crees que el producto les está resolviendo sus problemas?
-    El hecho de tener mucha información en un archivo XLS resulta algo complicado, al tener un sitio web donde manipular esos datos el flujo se vuelve un tanto más sencillo y amigable.
-* ¿Cómo fue tu proceso de diseño?
-    Se fue realizando sketch's de baja fidelidad en varias oportunidades con el fin de llegar a plasmar la idea y posteriormente llevarlo a un prototipo de alta fidelidad.
+El proceso de diseño se fue realizando a medida que se iban determinando los requerimientos del usario.
+> Se realizaron sketch's de baja fidelidad en varias oportunidades con el fin de llegar a plasmar la idea y posteriormente llevarlo a un prototipo de alta fidelidad.
 
-## SKETCH DE LA SOLUCIÓN (prototipo de baja fidelidad)
+## SKETCH DatadashBoard (prototipo de baja fidelidad)
 
 Utilizando unas hojas de papel se procedió a la elaboración del sketch inicial que contenía básicamente las pantallas ha realizar y las funcionalidades a implementar.
 
-![Preview](https://github.com/Leydy/lim-2018-05-bc-core-pm-datadashboard/blob/gh-pages/src/images/sketch/1.jpeg)
+**pantalla N° 1 : Inicio deSesión del usuario**
+![Preview](https://github.com/Leydy/lim-2018-05-bc-core-pm-datadashboard/blob/master/src/images/sketch/1.jpeg)
+
+**pantalla N° 2 : Pantalla principal de los cohort**
 ![Preview](https://github.com/Leydy/lim-2018-05-bc-core-pm-datadashboard/blob/gh-pages/src/images/sketch/2.jpeg)
+
+**pantalla N° 3 : Tablas de Cohorts**
 ![Preview](https://github.com/Leydy/lim-2018-05-bc-core-pm-datadashboard/blob/gh-pages/src/images/sketch/3.jpeg)
+
+**pantalla N° 4 : Tablas de Estudiantes y progreso de cada estudiante**
 ![Preview](https://github.com/Leydy/lim-2018-05-bc-core-pm-datadashboard/blob/gh-pages/src/images/sketch/4.jpeg)
+
+**pantalla N° 5 : ajustes para el usuario**
 ![Preview](https://github.com/Leydy/lim-2018-05-bc-core-pm-datadashboard/blob/gh-pages/src/images/sketch/5.jpeg)
 
 ## DISEÑO DE LA INTERFAZ DE USUARIO (prototipo de alta fidelidad)
 
-Se realizó el prototipo de alta fidelidad utilizando la herramienta FIGMA, abordando ya estilos y las funcionalidades principales del producto.
+Se realizó el prototipo de alta fidelidad utilizando la herramienta FIGMA, abordando ya estilos y las funcionalidades principales del producto,
+A continuación las imagénes de captura del figma
 
-Lo pueden visualizar aquí:
-https://www.figma.com/file/euldRLP5r0VMl9GxquqxR40G/SketchDatadashboard
+![Preview](https://github.com/aybaneze/datadashreadme/blob/master/pantalla1.jpg)
+![Preview](https://github.com/aybaneze/datadashreadme/blob/master/pantalla2.jpg)
+![Preview](https://github.com/aybaneze/datadashreadme/blob/master/pantalla3.jpg)
+![Preview](https://github.com/aybaneze/datadashreadme/blob/master/pantalla4.jpg)
+![Preview](https://github.com/aybaneze/datadashreadme/blob/master/pantalla5.jpg)
+![Preview](https://github.com/aybaneze/datadashreadme/blob/master/pantalla6.jpg)
+![Preview](https://github.com/aybaneze/datadashreadme/blob/master/pantalla7.jpg)
+![Preview](https://github.com/aybaneze/datadashreadme/blob/master/pantalla8.jpg)
+
+## JavaScript
+>Respecto a la lógica se usó 4 funciones:
+* computeUsersStats(users, progress, courses)
+* sortUsers(users, orderBy, orderDirection)
+* filterUsers(users, search)
+* processCohortData(options) 
+> para poder obtener la data de los archivos JSON realizamos un llamado con FETCH, esto se hizo por cada archivo.
+**users.json**
+**cohorts.json**
+**progress.json**
+
+# Link del proyecto
+dar click --> https://leydy.github.io/lim-2018-05-bc-core-pm-datadashboard/src/
