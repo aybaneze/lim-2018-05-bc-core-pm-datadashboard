@@ -2,7 +2,7 @@ let users = {};
 let progress = {};
 let courses = {};
 let cohort = {};
-let studentsTable;
+let milistaFinal;
 
 
 window.onload = function () {
@@ -98,62 +98,65 @@ function selectBootcamp() {
 
 
 var chargeAll = document.getElementById('udt');
-chargeAll.addEventListener("click", chargeDatatable);
+chargeAll.addEventListener("click", beginApp);
 var chargeSearch = document.getElementById('buttonSearch');
-chargeSearch.addEventListener("click", chargeDatatable);
+chargeSearch.addEventListener("click", beginApp);
 
-function chargeDatatable() {
+function beginApp() {
   fetch('https://api.laboratoria.la/cohorts')
   .then((response) => {return response.json();})
   .then((cohorts) => {
     //selector
   
-  let selectorSede = document.getElementById('selectSede');
-  let sedeName = selectorSede.options[selectorSede.selectedIndex].value;
-  let selector = document.getElementById('conjuntoBootcamp');
+    let selectorSede = document.getElementById('selectSede');
+    let sedeName = selectorSede.options[selectorSede.selectedIndex].value;
+    let selector = document.getElementById('conjuntoBootcamp');
   let selectorName = selector.options[selector.selectedIndex].value;
   let cohortByCampus = cohorts.filter(cohort => (cohort.id.toUpperCase()).indexOf(selectorName.toUpperCase()) !== -1);
   let selectorIndex = selector.selectedIndex;
-  let cohortName = selectorName;
- 
+    let cohortName = selectorName;
+  //cohortByCampus[selectorIndex].id;
+    // console.log(cohortName);
   
-    let jsonData = "https://api.laboratoria.la/cohorts/" + cohortName + "/users";
-    fetch(jsonData)
+    let jsonFile = "https://api.laboratoria.la/cohorts/" + cohortName + "/users";
+    fetch(jsonFile)
     .then((response) => {return response.json();})
     .then((users) => {
     
-      jsonData = "https://api.laboratoria.la/cohorts/"+ cohortName +"/progress";
-      fetch(jsonData)
+      jsonFile = "https://api.laboratoria.la/cohorts/"+ cohortName +"/progress";
+      fetch(jsonFile)
       .then((response) => {return response.json();})
       .then((progress)=> {
-           
+        //ordenar por tema
+    
         let ordenar1 = document.getElementById('orderBy');
         let orderBy = ordenar1.options[ordenar1.selectedIndex].text;
-        
+        //ordenar por direccion
         let ordenar2 = document.getElementById('orderDirection');
         let orderDirection = ordenar2.options[ordenar2.selectedIndex].text;
-        
+        //buscador //colocar search
         let search = document.getElementById('myInput').value;
         var options = {
           cohort: cohortByCampus[0],
           cohortData : {
-            users,
-            progress,
-            coursesIndex : Object.keys(cohortByCampus[0].coursesIndex)
+            users,//array en bruto users
+            progress,//objeto en bruto progress
+            coursesIndex : Object.keys(cohortByCampus[0].coursesIndex)//arreglo
           },
           orderBy,
           orderDirection,
           search
         }
-        
-        let studentsTableData = window.processCohortData(options);
+        // console.log(cohortByCampus[selector.selectedIndex].coursesIndex);
+        let myFinalList = window.processCohortData(options);
         let studentsOptions = document.getElementById("myTable");
         studentsOptions.innerHTML="";
-        studentsOptions.innerHTML="<tr><td>Nombre</td><td>Porcentaje General</td><td>Ejercicios</td><td>Quizzes</td><td>Lecturas</td><td>Promedio de Quizzes</td><td>Evento</td></tr>";
+        studentsOptions.innerHTML="<tr><td>Nombre</td><td>Porcentaje</td><td>Ejercicios</td><td>Quizzes</td><td>Lecturas</td><td>Prom Quiz</td><td>Evento</td></tr>";
 
         studentsOptions.appendChild(document.createElement('tr'));
         let count = 1;
-        studentsTableData.forEach(function(element) {
+        // console.log("div"+count)
+        myFinalList.forEach(function(element) {
         let fileStudent = document.createElement('tr');
         fileStudent.setAttribute("id", "student" + count);
         let nameOfStudents = document.createElement('td');
@@ -161,7 +164,7 @@ function chargeDatatable() {
         let percentStudent = document.createElement('td');
         percentStudent.innerText = element.stats.percent + "%";
         let exercisesStudent = document.createElement('td');
-        let statsCompleted  = "";
+    var statsCompleted  = "";
     
     statsCompleted = element.stats.exercises.completed;
     if(isNaN(statsCompleted)){
@@ -188,9 +191,10 @@ function chargeDatatable() {
     studentsOptions.appendChild(tdButtonTD);
         studentsOptions.appendChild(document.createElement('tr'));
     
-       
+    
+    
         });
-    studentsTable = studentsTableData;
+    milistaFinal = myFinalList;
       });
     });
   });
@@ -198,10 +202,10 @@ function chargeDatatable() {
 
 function showDetails(users) {
     
-    var modal = document.getElementById('myModal');//oscurece la parte de atràs
+    var modal = document.getElementById('myModal');
     
     modal.style.display = "block";
-    var span = document.getElementsByClassName("close")[0];//dibuja la x
+    var span = document.getElementsByClassName("close")[0];
 
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
@@ -217,12 +221,14 @@ function showDetails(users) {
     
       var userType = parseInt(users.getAttribute("data-key")) - 1;
     debugger;
-    var objetoUsersWithStats = studentsTable[userType];
+    var objetoUsersWithStats = milistaFinal[userType];
 
     
     
     document.getElementById("pagrafo1").innerHTML = "Nombre" + " " + objetoUsersWithStats.stats.name;
-    let elementProgress = document.getElementById("progresExercise");
+        //document.getElementById("pagrafo2").innerHTML = "03-quiz Completed" + " " + quizDesignParts;      
+      //document.getElementById("pagrafo3").innerHTML = "05-quiz Completed" + " " + quizVariablesParts;
+      var elementProgress = document.getElementById("progresExercise");
     elementProgress.innerHTML = "";
     elementProgress.classList = "";
     elementProgress.classList.add("progress-bar");
