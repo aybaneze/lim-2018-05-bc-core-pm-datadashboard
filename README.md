@@ -67,14 +67,14 @@ Utilizando unas hojas de papel se procedió a la elaboración del sketch inicial
 Se realizó el prototipo de alta fidelidad utilizando la herramienta FIGMA, abordando ya estilos y las funcionalidades principales del producto,
 A continuación las imagénes de captura del figma
 
-![Preview](https://github.com/aybaneze/datadashreadme/blob/master/pantalla1.jpg)
-![Preview](https://github.com/aybaneze/datadashreadme/blob/master/pantalla2.jpg)
-![Preview](https://github.com/aybaneze/datadashreadme/blob/master/pantalla3.jpg)
-![Preview](https://github.com/aybaneze/datadashreadme/blob/master/pantalla4.jpg)
-![Preview](https://github.com/aybaneze/datadashreadme/blob/master/pantalla5.jpg)
-![Preview](https://github.com/aybaneze/datadashreadme/blob/master/pantalla6.jpg)
-![Preview](https://github.com/aybaneze/datadashreadme/blob/master/pantalla7.jpg)
-![Preview](https://github.com/aybaneze/datadashreadme/blob/master/pantalla8.jpg)
+![Preview](https://github.com/aybaneze/lim-2018-05-bc-core-pm-datadashboard/blob/master/src/images/prototipofigma/pantalla1.jpg)
+![Preview](https://github.com/aybaneze/lim-2018-05-bc-core-pm-datadashboard/blob/master/src/images/prototipofigma/pantalla2.jpg)
+![Preview](https://github.com/aybaneze/lim-2018-05-bc-core-pm-datadashboard/blob/master/src/images/prototipofigma/pantalla3.jpg)
+![Preview](https://github.com/aybaneze/lim-2018-05-bc-core-pm-datadashboard/blob/master/src/images/prototipofigma/pantalla4.jpg)
+![Preview](https://github.com/aybaneze/lim-2018-05-bc-core-pm-datadashboard/blob/master/src/images/prototipofigma/pantalla5.jpg)
+![Preview](https://github.com/aybaneze/lim-2018-05-bc-core-pm-datadashboard/blob/master/src/images/prototipofigma/pantalla6.jpg)
+![Preview](https://github.com/aybaneze/lim-2018-05-bc-core-pm-datadashboard/blob/master/src/images/prototipofigma/pantalla7.jpg)
+![Preview](https://github.com/aybaneze/lim-2018-05-bc-core-pm-datadashboard/blob/master/src/images/prototipofigma/pantalla8.jpg)
 
 ## JavaScript
 >Respecto a la lógica se usó 4 funciones:
