@@ -120,7 +120,7 @@ describe('data', () => {
           total: 3, 
           completed: 2, 
           percent: 67, 
-          scoreSum: 57, 
+          scoreSum: 58, 
           scoreAvg: 29
         }
       }
@@ -167,8 +167,6 @@ describe('data', () => {
       assert.deepEqual(window.sortUsers(usersArray, '% Total', 'DESC'), [firstUser, secondUser, thirdUser])
     });
 
-
-    
     it('debería retornar arreglo de usuarios ordenado por ejercicios completados ASC',() => {
       assert.deepEqual(window.sortUsers(usersArray, '% Ejercicios', 'ASC'), [secondUser, thirdUser,firstUser])
     });
@@ -191,9 +189,9 @@ describe('data', () => {
       assert.deepEqual(window.sortUsers(usersArray, '% Lecturas', 'DESC'), [firstUser, secondUser, thirdUser])
     });
     
-    /*it('debería retornar arreglo de usuarios ordenado por score promedio en quizzes completados ASC',() => {
-      assert.deepEqual(window.sortUsers(usersArray, 'Promedio de Quizzes', 'ASC'), [secondUser, firstUser, thirdUser])
-    });*/
+    it('debería retornar arreglo de usuarios ordenado por score promedio en quizzes completados ASC',() => {
+      assert.deepEqual(window.sortUsers(usersArray, 'Promedio de quizzes', 'ASC'), [secondUser, thirdUser, firstUser])
+    });
     it('debería retornar arreglo de usuarios ordenado por score promedio en quizzes completados DESC',() => {
       assert.deepEqual(window.sortUsers(usersArray, 'Promedio de quizzes', 'DESC'), [firstUser, thirdUser, secondUser])
     });
