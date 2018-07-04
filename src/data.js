@@ -1,8 +1,12 @@
 const filterUsers = (users, search) => {
-  let myListFiltered = users.filter(user => (user.name.toUpperCase()).indexOf(search.toUpperCase()) !== -1);
+  /*let myListFiltered = users.filter(user => (user.name.toUpperCase()).
   return myListFiltered;//lista de usuarios con coincidencia en search
 }
 
+*/
+let filterName = users.filter((user) => (user.name.toUpperCase()).indexOf(search.toUpperCase()) !== -1);
+  return filterName;
+};
 const computeUsersStats = (users, progress, courses) => {
   let myList = [];
   users.forEach(function(element1) {
@@ -103,6 +107,8 @@ const computeUsersStats = (users, progress, courses) => {
     
   }
   });
+
+  usersWithStats=myList;
   return myList;
 }
 

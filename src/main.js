@@ -2,7 +2,7 @@ let users = {};
 let progress = {};
 let courses = {};
 let cohort = {};
-let milistaFinal;
+let usersWithStats;
 
 
 window.onload = function () {
