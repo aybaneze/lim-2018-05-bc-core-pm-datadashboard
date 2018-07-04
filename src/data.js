@@ -6,7 +6,6 @@ const filterUsers = (users, search) => {
 const computeUsersStats = (users, progress, courses) => {
   let myList = [];
   users.forEach(function(element1) {
-  // console.log(element1);
   
   let uid = element1.id;
   let progressUser = progress[uid];
@@ -21,8 +20,6 @@ const computeUsersStats = (users, progress, courses) => {
   let empty = Object.keys(progressUser).length;
   
   if(element1.role === "student" && element1.name != ""){
-    
- 
 
   if(empty !== 0)
   {
@@ -32,13 +29,9 @@ const computeUsersStats = (users, progress, courses) => {
         if(progressUser[courseName].hasOwnProperty('percent')) {
           percentTotal += progressUser[courseName].percent;
           let progressUserByCourse = progressUser[courseName];
-          // console.log(Object.values(progressUserByCourse.units));
           Object.values(progressUserByCourse.units).forEach(unit => {
             let exercises = Object.values(unit.parts);
-            // console.log(exercises);
             exercises.forEach((part) => {
-        
-              // console.log(part.type);
               if(part.type === "read") {
                 readsCompleted += part.completed;
                 readsTotal++;
@@ -67,8 +60,6 @@ const computeUsersStats = (users, progress, courses) => {
     percentTotal = Math.round((percentTotal/courses.length)*100)/100;
     // console.log(percentTotal);
   }
-  
-  //Por ahora solo hay un curso
  
   let percentQuiz;
   if(quizzesCompleted === 0 && quizzesTotal === 0){
@@ -87,7 +78,7 @@ const computeUsersStats = (users, progress, courses) => {
       name : (element1.name).replace(/\b\w/g, function(l){ return l.toUpperCase() }),//primeraletra de caa palabra enmayuscula
       percent: percentTotal,
       exercises : {
-        total: exercisesTotal,//total de ejercicios autocorregidos
+        total: exercisesTotal,
         completed: exercisesCompleted,//autocorregidos completados
         percent: parseInt((exercisesCompleted/exercisesTotal*100).toFixed())//validator(exercisesCompleted,exercisesTotal)porcentaje de ejercicios autocorregidos autocompletados
       },
@@ -97,19 +88,19 @@ const computeUsersStats = (users, progress, courses) => {
         percent: parseInt((readsCompleted/readsTotal*100).toFixed())//validator(readsCompleted, readsTotal)porcentaje de lecturas
       },
       quizzes : {
-        total: quizzesTotal, //total quizzes presentes
-        completed: quizzesCompleted, // quizzes autocompletados
-        percent: percentQuiz,//validator(quizzesCompleted, quizzesTotal)porcentaje de quizzes completados
-        scoreSum: quizzesScoreSum, //suma de puntuaciones de los _quizzes_ completados
-        scoreAvg: scroreAvrg//validator(quizzesScoreSum, quizzesCompleted)promedio de puntuaciones en quizzes completados
+        total: quizzesTotal, 
+        completed: quizzesCompleted, 
+        percent: percentQuiz,
+        scoreSum: quizzesScoreSum,
+        scoreAvg: scroreAvrg
       }
     }
   }
   myList.push(usersWithStats);
   }else{
-    debugger;
+    
     element1.name;
-    debugger;
+    
   }
   });
   return myList;
@@ -127,31 +118,33 @@ const sortUsers = (users, orderBy, orderDirection) => {
       // return 0 //default return value (no sorting)
     });
   }
-  if(orderBy === "Porcentaje Completitud Total") {
+  if(orderBy === "% Total") {
     myListByOrder.sort( function(a,b) {
       return a.stats.percent - b.stats.percent;
     });
   }
-  if(orderBy === "Porcentaje ejercicios completos") {
+  if(orderBy === "% Ejercicios") {
     myListByOrder.sort( function(a,b) {
       return a.stats.exercises.completed - b.stats.exercises.completed;
     });
   }
-  if(orderBy === "Porcentaje Quizzes completos") {
+  if(orderBy === "% Quizzes") {
     myListByOrder.sort( function(a,b) {
       return a.stats.quizzes.completed - b.stats.quizzes.completed;
     });
   }
-  if(orderBy === "Puntuacion promedio en quizzes") {
-    myListByOrder.sort( function(a,b) {
-      return a.stats.quizzes.scoreSum - b.stats.quizzes.scoreSum;
-    });
-  }
-  if(orderBy === "Porcentaje de lecturas completadas") {
+
+  if(orderBy === "% Lecturas") {
     myListByOrder.sort( function(a,b) {
       return a.stats.reads.completed - b.stats.reads.completed;
     });
   }
+  if(orderBy === "Promedio de quizzes") {
+    myListByOrder.sort( function(a,b) {
+      return a.stats.quizzes.scoreSum - b.stats.quizzes.scoreSum;
+    });
+  }
+  
   if (orderDirection === "DESC") {
     myListByOrder = myListByOrder.reverse();
   }
@@ -161,13 +154,11 @@ const sortUsers = (users, orderBy, orderDirection) => {
 
 const processCohortData = (options) => {
   let users = options.cohortData.users;
-  // let cohort = options.cohort;
   let progress = options.cohortData.progress;
   let orderBy = options.orderBy;
   let orderDirection = options.orderDirection;
   let search = options.search;
   let courses = options.cohortData.coursesIndex;
-  // console.log(courses);
   let usersFiltered = filterUsers(users, search);
   let usersWithStatus = computeUsersStats(usersFiltered, progress, courses);
   let myListOrderAndFiltered = sortUsers(usersWithStatus, orderBy, orderDirection);

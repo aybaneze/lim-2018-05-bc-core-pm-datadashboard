@@ -151,7 +151,7 @@ function beginApp() {
         let myFinalList = window.processCohortData(options);
         let studentsOptions = document.getElementById("myTable");
         studentsOptions.innerHTML="";
-        studentsOptions.innerHTML="<tr><td>Nombre</td><td>Porcentaje</td><td>Ejercicios</td><td>Quizzes</td><td>Lecturas</td><td>Prom Quiz</td><td>Evento</td></tr>";
+        studentsOptions.innerHTML="<tr><td>Nombre</td><td>% Total</td><td>% Ejercicios</td><td>% Quizzes</td><td>% Lecturas</td><td>Promedio de quizzes</td><td>Gráficos</td></tr>";
 
         studentsOptions.appendChild(document.createElement('tr'));
         let count = 1;
@@ -176,7 +176,7 @@ function beginApp() {
         let readsStudent = document.createElement('td');
         readsStudent.innerText = element.stats.reads.completed + " de " +element.stats.reads.total;
         let quizzesPromStudent = document.createElement('td');
-        quizzesPromStudent.innerText = element.stats.quizzes.scoreSum;
+        quizzesPromStudent.innerText = element.stats.quizzes.scoreAvg;
         studentsOptions.appendChild(nameOfStudents);
         studentsOptions.appendChild(percentStudent);
         studentsOptions.appendChild(exercisesStudent);
@@ -189,10 +189,7 @@ function beginApp() {
     count++;        
         
     studentsOptions.appendChild(tdButtonTD);
-        studentsOptions.appendChild(document.createElement('tr'));
-    
-    
-    
+        studentsOptions.appendChild(document.createElement('tr'));    
         });
     milistaFinal = myFinalList;
       });
@@ -203,13 +200,12 @@ function beginApp() {
 function showDetails(users) {
     
     var modal = document.getElementById('myModal');
-    
     modal.style.display = "block";
     var span = document.getElementsByClassName("close")[0];
 
     // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
-      modal.style.display = "none";
+    modal.style.display = "none";
     }
 
     // When the user clicks anywhere outside of the modal, close it
@@ -219,16 +215,12 @@ function showDetails(users) {
       }
     }
     
-      var userType = parseInt(users.getAttribute("data-key")) - 1;
+    var userType = parseInt(users.getAttribute("data-key")) - 1;
     debugger;
     var objetoUsersWithStats = milistaFinal[userType];
 
-    
-    
     document.getElementById("pagrafo1").innerHTML = "Nombre" + " " + objetoUsersWithStats.stats.name;
-        //document.getElementById("pagrafo2").innerHTML = "03-quiz Completed" + " " + quizDesignParts;      
-      //document.getElementById("pagrafo3").innerHTML = "05-quiz Completed" + " " + quizVariablesParts;
-      var elementProgress = document.getElementById("progresExercise");
+    var elementProgress = document.getElementById("progresExercise");
     elementProgress.innerHTML = "";
     elementProgress.classList = "";
     elementProgress.classList.add("progress-bar");
@@ -241,8 +233,6 @@ function showDetails(users) {
     }
     elementProgress.classList.add("w-"+ porcentajeExercise);
     elementProgress.innerText = porcentajeExercise +"%";
-    
-    
     var progresQuizzes = document.getElementById("progresQuizzes");
     progresQuizzes.innerHTML = "";
     progresQuizzes.classList = "";
