@@ -7,6 +7,7 @@ const computeUsersStats = (users, progress, courses) => {
   let myList = [];
   users.forEach(function(element1) {
   // console.log(element1);
+  
   let uid = element1.id;
   let progressUser = progress[uid];
   let percentTotal = 0;
@@ -18,6 +19,11 @@ const computeUsersStats = (users, progress, courses) => {
   let quizzesCompleted = 0;
   let quizzesScoreSum = 0;
   let empty = Object.keys(progressUser).length;
+  
+  if(element1.role === "student" && element1.name != ""){
+    
+ 
+
   if(empty !== 0)
   {
     
@@ -61,7 +67,21 @@ const computeUsersStats = (users, progress, courses) => {
     percentTotal = Math.round((percentTotal/courses.length)*100)/100;
     // console.log(percentTotal);
   }
+  
   //Por ahora solo hay un curso
+ 
+  let percentQuiz;
+  if(quizzesCompleted === 0 && quizzesTotal === 0){
+    percentQuiz = 0;
+  }else{
+    percentQuiz = parseInt((quizzesCompleted/quizzesTotal*100).toFixed());
+  }
+  let scroreAvrg;
+  if(quizzesScoreSum === 0 && quizzesCompleted === 0){
+    scroreAvrg = 0;
+  }else{
+      scroreAvrg = parseInt((quizzesScoreSum/quizzesCompleted).toFixed());
+  }
   let usersWithStats = {
     stats : {
       name : (element1.name).replace(/\b\w/g, function(l){ return l.toUpperCase() }),//primeraletra de caa palabra enmayuscula
@@ -79,13 +99,18 @@ const computeUsersStats = (users, progress, courses) => {
       quizzes : {
         total: quizzesTotal, //total quizzes presentes
         completed: quizzesCompleted, // quizzes autocompletados
-        percent: parseInt((quizzesCompleted/quizzesTotal*100).toFixed()),//validator(quizzesCompleted, quizzesTotal)porcentaje de quizzes completados
+        percent: percentQuiz,//validator(quizzesCompleted, quizzesTotal)porcentaje de quizzes completados
         scoreSum: quizzesScoreSum, //suma de puntuaciones de los _quizzes_ completados
-        scoreAvg: parseInt((quizzesScoreSum/quizzesCompleted).toFixed())//validator(quizzesScoreSum, quizzesCompleted)promedio de puntuaciones en quizzes completados
+        scoreAvg: scroreAvrg//validator(quizzesScoreSum, quizzesCompleted)promedio de puntuaciones en quizzes completados
       }
     }
   }
   myList.push(usersWithStats);
+  }else{
+    debugger;
+    element1.name;
+    debugger;
+  }
   });
   return myList;
 }
