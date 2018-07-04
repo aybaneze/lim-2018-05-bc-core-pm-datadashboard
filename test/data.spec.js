@@ -21,11 +21,9 @@ describe('data', () => {
   const courses = Object.keys(cohort.coursesIndex);
   const { users, progress } = window.fixtures;
   
-
-
-    /*it('debería retornar arreglo de usuarios con propiedad stats', () => {
+    it('debería retornar arreglo de usuarios con propiedad stats', () => {
       const processed = window.computeUsersStats(users, progress, courses);
-      assert.equal(users.length, processed.length);
+      assert.equal('727', processed.length);
       processed.forEach(user => {
       assert.ok(user.hasOwnProperty('stats'));
       assert.isNumber(user.stats.percent);
@@ -33,7 +31,7 @@ describe('data', () => {
       assert.isObject(user.stats.quizzes);
       assert.isObject(user.stats.reads);
       });
-    });*/
+    });
 
     describe('user.stats para el primer usuario en data de prueba - ver carpeta data/', () => {
 
@@ -210,33 +208,34 @@ describe('data', () => {
 
 });
    
-   /*describe('processCohortData({ cohortData, orderBy, orderDirection, filterBy })', () => {
-    
-   it('debería retornar arreglo de usuarios con propiedad stats y aplicar sort y filter',() =>{
-      assert.deepEqual(window.processCohortData(options),[{
-        stats: {
-          name: "Lucia",
-          percent: 20,
-          exercises: {
-            total: 2, 
-            completed: 0, 
-            percent: 0
+  describe('processCohortData({ cohortData, orderBy, orderDirection, filterBy })', () => {
+   
+  const cohort = window.fixtures.cohorts.find(item => item.id === 'lim-2018-03-pre-core-pw');
+  const courses = Object.keys(cohort.coursesIndex);
+  const { users, progress } = window.fixtures; 
+  it('debería retornar arreglo de usuarios con propiedad stats y aplicar sort y filter',() =>{
+    var options = {
+          cohort: courses,
+          cohortData : {
+            users: users,
+            progress: progress,
+            coursesIndex : Object.keys(cohort.coursesIndex)
           },
-          reads: {
-            total: 11, 
-            completed: 3, 
-            percent: 27
-          },
-
-          quizzes: {
-            total: 3, 
-            completed: 0, 
-            percent: 0, 
-            scoreSum: 0, 
-            scoreAvg: 0
-          }
+          orderBy: 'name',
+          orderDirection: 'ASC',
+          search: 'DEV'
         }
-      }]);
+        const result=processCohortData(options);
+        
+        const finalUser={
+          name:'Devora Alexandra MiñAno Vejarano',
+        };
+        
+        assert.equal(result[0].stats.name, finalUser.name)
+      });
+
+
+     
     });
-  }); */
-  });  
+  }); 
+  
